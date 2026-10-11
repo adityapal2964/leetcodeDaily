@@ -1,12 +1,19 @@
 class Solution {
     public boolean isValid(String s) {
-        if(s.length()%3 != 0)return false;
-        if(s.length()== 0 || s.equals("abc"))return true;
-        for(int i =0;i<s.length()-2;i++){
-            if(s.substring(i, i+3).equals("abc")){
-                return isValid(s.substring(0,i)+(i+3 < s.length()?(s.substring(i+3)):""));
-            }
+        int n = s.length();
+        if(n%3!=0)return false;
+        char[] st = new char[n];
+        int top = 0;
+        for(int i =0;i<n;i++){
+            st[top++] = s.charAt(i);
+
+            if(
+                top >= 3 &&
+                st[top-1] == 'c' &&
+                st[top-2] == 'b' &&
+                st[top-3] == 'a'
+            )top -= 3;
         }
-        return false;
+        return top == 0;
     }
 }
